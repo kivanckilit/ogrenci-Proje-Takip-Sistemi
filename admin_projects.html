@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="layout">
+    {% include "sidebar.html" %}
+
+    <section class="content">
+        <div class="page-title">
+            <div>
+                <h1>Öğrenci Proje Detayı</h1>
+                <p>Dosya teslimleri, ilerleme durumu ve değerlendirme yorumları.</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card"><b>Proje</b><span>{{ project.code }} - {{ project.title }}</span></div>
+            <div class="info-card"><b>Öğrenci</b><span>{{ student.full_name }} / {{ student.student_no or "-" }}</span></div>
+            <div class="info-card"><b>Durum</b><span>{{ application.status if application else "-" }}</span></div>
+            <div class="info-card"><b>İlerleme</b><span>{{ application.progress if application else 0 }}%</span></div>
+        </div>
+
+        <div class="two-column">
+            <div class="panel">
+                <h2>Yüklenen Dosyalar</h2>
+                {% for f in files %}
+                    <div class="file-row">
+                        <b>{{ f.file_type }}</b>
+                        <a class="link" href="{{ url_for('uploaded_file', filename=f.filename) }}">{{ f.original_name }}</a>
+                        <small>{{ f.uploaded_at }}</small>
+                    </div>
+                {% else %}
+                    <p class="muted">Henüz dosya yüklenmemiş.</p>
+                {% endfor %}
+            </div>
+
+            <div class="panel">
+                <h2>Değerlendirme Yorumu Ekle</h2>
+                <form method="POST">
+                    <label>Yorum</label>
+                    <textarea name="comment" required></textarea>
+                    <button class="btn" type="submit">Yorum Kaydet</button>
+                </form>
+
+                <h2>Yorum Geçmişi</h2>
+                {% for c in comments %}
+                    <div class="announcement">
+                        <p>{{ c.comment }}</p>
+                        <small>{{ c.created_at }}</small>
+                    </div>
+                {% else %}
+                    <p class="muted">Yorum bulunmuyor.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

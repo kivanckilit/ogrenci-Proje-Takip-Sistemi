@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <span class="eyebrow">Resmi Kurum Seviyesinde Proje Takibi</span>
+        <h1>Öğrenci projelerini uçtan uca yöneten profesyonel sistem</h1>
+        <p>
+            Proje tanımlama, başvuru alma, onay süreci, öğrenci dosya teslimi,
+            ilerleme takibi ve öğretmen değerlendirmeleri tek panelde yönetilir.
+        </p>
+        <div class="hero-actions">
+            <a class="btn gold" href="{{ url_for('login') }}">Sisteme Giriş Yap</a>
+            <a class="btn light" href="{{ url_for('register') }}">Yeni Hesap Oluştur</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <h3>Sistem Modülleri</h3>
+        <div class="module-row"><b>01</b><span>Öğrenci Bilgi ve Başvuru Yönetimi</span></div>
+        <div class="module-row"><b>02</b><span>Öğretmen Proje ve Değerlendirme Paneli</span></div>
+        <div class="module-row"><b>03</b><span>Admin Kullanıcı, Proje ve Duyuru Yönetimi</span></div>
+        <div class="module-row"><b>04</b><span>Raporlama, Dosya Teslimi ve İlerleme Takibi</span></div>
+    </div>
+</section>
+
+<section class="feature-grid">
+    <div class="feature-card">
+        <h3>Öğrenci No Zorunlu</h3>
+        <p>Öğrenci kayıtlarında okul numarası, bölüm ve sınıf bilgileri tutulur.</p>
+    </div>
+    <div class="feature-card">
+        <h3>Kontenjan Takibi</h3>
+        <p>Projelerde kontenjan belirlenir, dolan projelere yeni onay verilmez.</p>
+    </div>
+    <div class="feature-card">
+        <h3>İlerleme Yüzdesi</h3>
+        <p>Öğrenci onaylanan projesinin tamamlanma yüzdesini günceller.</p>
+    </div>
+    <div class="feature-card">
+        <h3>Kurumsal Rapor</h3>
+        <p>Başvuru, durum, öğretmen ve öğrenci bilgileri rapor ekranında izlenir.</p>
+    </div>
+</section>
+{% endblock %}

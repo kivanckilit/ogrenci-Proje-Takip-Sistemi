@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="layout">
+    {% include "sidebar.html" %}
+
+    <section class="content">
+        <div class="page-title">
+            <div>
+                <h1>Profil Bilgileri</h1>
+                <p>Kişisel ve kurumsal bilgilerinizi görüntüleyin veya güncelleyin.</p>
+            </div>
+        </div>
+
+        <div class="form-card wide">
+            <form method="POST" class="form-grid">
+                <div>
+                    <label>Ad Soyad</label>
+                    <input name="full_name" value="{{ user.full_name or '' }}" required>
+                </div>
+
+                <div>
+                    <label>Kullanıcı Adı</label>
+                    <input value="{{ user.username }}" disabled>
+                </div>
+
+                <div>
+                    <label>Rol</label>
+                    <input value="{{ user.role }}" disabled>
+                </div>
+
+                <div>
+                    <label>E-posta</label>
+                    <input name="email" type="email" value="{{ user.email or '' }}">
+                </div>
+
+                <div>
+                    <label>Telefon</label>
+                    <input name="phone" value="{{ user.phone or '' }}">
+                </div>
+
+                {% if user.role == "student" %}
+                    <div>
+                        <label>Öğrenci No</label>
+                        <input value="{{ user.student_no or '' }}" disabled>
+                    </div>
+                    <div>
+                        <label>Bölüm / Program</label>
+                        <input name="department" value="{{ user.department or '' }}">
+                    </div>
+                    <div>
+                        <label>Sınıf</label>
+                        <input name="grade" value="{{ user.grade or '' }}">
+                    </div>
+                {% endif %}
+
+                {% if user.role == "teacher" %}
+                    <div>
+                        <label>Sicil No</label>
+                        <input value="{{ user.teacher_no or '' }}" disabled>
+                    </div>
+                    <div>
+                        <label>Branş</label>
+                        <input name="branch" value="{{ user.branch or '' }}">
+                    </div>
+                {% endif %}
+
+                <div class="form-actions">
+                    <button class="btn full" type="submit">Profili Güncelle</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}
