@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-layout">
+    <div class="auth-info">
+        <span class="eyebrow dark">Güvenli Oturum</span>
+        <h1>Yetkili kullanıcı girişi</h1>
+        <p>
+            Öğrenci, öğretmen ve yönetici rolleri sisteme ayrı yetkilerle erişir.
+            Her kullanıcı yalnızca kendi rolüne uygun işlemleri yapabilir.
+        </p>
+        <div class="info-box">
+            <b>Varsayılan Admin</b>
+            <span>Kullanıcı adı: admin</span>
+            <span>Şifre: admin123</span>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <h2>Giriş Yap</h2>
+        <form method="POST">
+            <label>Kullanıcı Adı</label>
+            <input name="username" placeholder="Kullanıcı adınız" required>
+
+            <label>Şifre</label>
+            <input name="password" type="password" placeholder="Şifreniz" required>
+
+            <button class="btn full" type="submit">Sisteme Giriş</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

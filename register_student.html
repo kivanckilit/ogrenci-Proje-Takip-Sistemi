@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="layout">
+    {% include "sidebar.html" %}
+
+    <section class="content">
+        <div class="page-title">
+            <div>
+                <h1>Duyuru Yönetimi</h1>
+                <p>Sistemdeki kullanıcılara rol bazlı duyuru yayınlayın.</p>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="form-card">
+                <h2>Yeni Duyuru</h2>
+                <form method="POST">
+                    <label>Başlık</label>
+                    <input name="title" required>
+
+                    <label>Hedef Rol</label>
+                    <select name="target_role">
+                        <option value="all">Tüm Kullanıcılar</option>
+                        <option value="student">Öğrenciler</option>
+                        <option value="teacher">Öğretmenler</option>
+                        <option value="admin">Yöneticiler</option>
+                    </select>
+
+                    <label>İçerik</label>
+                    <textarea name="content" required></textarea>
+
+                    <button class="btn full" type="submit">Duyuruyu Yayınla</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h2>Yayınlanan Duyurular</h2>
+                {% for d in announcements %}
+                    <div class="announcement">
+                        <b>{{ d.title }}</b>
+                        <p>{{ d.content }}</p>
+                        <small>{{ d.target_role }} · {{ d.created_at }}</small>
+                        <form method="POST" action="{{ url_for('delete_announcement', announcement_id=d.id) }}">
+                            <button class="btn small danger-btn" type="submit">Sil</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <p class="muted">Duyuru bulunmuyor.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

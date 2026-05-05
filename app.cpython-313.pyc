@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-card wide">
+    <h2>Öğretmen Kaydı</h2>
+    <p class="form-note">
+        Bu ekran sadece öğretmen hesabı oluşturmak içindir. Öğretmen sicil numarası zorunludur.
+    </p>
+
+    <form method="POST" class="form-grid">
+        <div>
+            <label>Ad Soyad</label>
+            <input name="full_name" placeholder="Örn: Mehmet Demir" required>
+        </div>
+
+        <div>
+            <label>Öğretmen Sicil No</label>
+            <input name="teacher_no" placeholder="Örn: T-2026-001" required>
+        </div>
+
+        <div>
+            <label>Kullanıcı Adı</label>
+            <input name="username" placeholder="Örn: mehmetdemir" required>
+        </div>
+
+        <div>
+            <label>Şifre</label>
+            <input name="password" type="password" required>
+        </div>
+
+        <div>
+            <label>Branş</label>
+            <input name="branch" placeholder="Örn: Yazılım / Veritabanı">
+        </div>
+
+        <div>
+            <label>Birim / Bölüm</label>
+            <input name="department" placeholder="Örn: Bilişim Teknolojileri">
+        </div>
+
+        <div>
+            <label>E-posta</label>
+            <input name="email" type="email" placeholder="ornek@mail.com">
+        </div>
+
+        <div>
+            <label>Telefon</label>
+            <input name="phone" placeholder="05xx xxx xx xx">
+        </div>
+
+        <div class="form-actions">
+            <button class="btn full" type="submit">Öğretmen Kaydını Tamamla</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="layout">
+    {% include "sidebar.html" %}
+
+    <section class="content">
+        <div class="page-title">
+            <div>
+                <h1>Öğrenci Paneli</h1>
+                <p>Başvurularınızı, proje durumunuzu ve dosya teslimlerinizi takip edin.</p>
+            </div>
+            <a class="btn" href="{{ url_for('projects') }}">Proje Seç</a>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat"><span>{{ stats.total }}</span><b>Toplam Başvuru</b></div>
+            <div class="stat"><span>{{ stats.waiting }}</span><b>Bekleyen</b></div>
+            <div class="stat"><span>{{ stats.accepted }}</span><b>Onaylanan</b></div>
+            <div class="stat"><span>{{ stats.completed }}</span><b>Tamamlanan</b></div>
+        </div>
+
+        <div class="panel">
+            <h2>Başvurularım</h2>
+            <div class="card-grid">
+                {% for a in applications %}
+                    <div class="project-card">
+                        <span class="project-code">{{ a.code }}</span>
+                        <h3>{{ a.title }}</h3>
+                        <p>{{ a.description }}</p>
+                        <div class="meta-grid">
+                            <span>Öğretmen: <b>{{ a.teacher_name }}</b></span>
+                            <span>Kategori: <b>{{ a.category or "-" }}</b></span>
+                            <span>Son Tarih: <b>{{ a.deadline or "-" }}</b></span>
+                            <span>Durum: <b>{{ a.status }}</b></span>
+                        </div>
+
+                        {% if a.rejection_reason %}
+                            <div class="warning-box">Ret nedeni: {{ a.rejection_reason }}</div>
+                        {% endif %}
+
+                        <div class="progress-area">
+                            <div class="progress-top">
+                                <b>İlerleme</b>
+                                <span>{{ a.progress }}%</span>
+                            </div>
+                            <div class="progress-bar"><i style="width: {{ a.progress }}%;"></i></div>
+                        </div>
+
+                        {% if a.status in ["Onaylandı", "Tamamlandı"] %}
+                            <form method="POST" action="{{ url_for('update_progress', app_id=a.id) }}" class="mini-form">
+                                <label>İlerleme Yüzdesi</label>
+                                <input type="number" min="0" max="100" name="progress" value="{{ a.progress }}">
+                                <button class="btn small" type="submit">Güncelle</button>
+                            </form>
+
+                            <form method="POST" action="{{ url_for('upload_file', project_id=a.project_id) }}" enctype="multipart/form-data" class="mini-form">
+                                <label>Dosya Türü</label>
+                                <select name="file_type">
+                                    <option>Proje Dosyası</option>
+                                    <option>Rapor</option>
+                                    <option>Sunum</option>
+                                    <option>Kaynak Kod</option>
+                                    <option>Diğer</option>
+                                </select>
+                                <label>Dosya Seç</label>
+                                <input type="file" name="file" required>
+                                <button class="btn small" type="submit">Dosya Yükle</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="empty">Henüz proje başvurunuz yok.</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Duyurular</h2>
+            {% for d in announcements %}
+                <div class="announcement">
+                    <b>{{ d.title }}</b>
+                    <p>{{ d.content }}</p>
+                    <small>{{ d.created_at }}</small>
+                </div>
+            {% else %}
+                <p class="muted">Duyuru bulunmuyor.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
